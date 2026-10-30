@@ -2,6 +2,7 @@
 datos/muestra_30/
 trabajo/
 trabajo_rapido/
+trabajo_*/
 *.npz
 *.pt
 

@@ -82,7 +82,30 @@ El código protege contra la mezcla de resultados viejos y nuevos:
 
 Si dudan, borrar `trabajo/` entero siempre es seguro: solo cuesta volver a calcular.
 
-## 7. El conjunto de prueba (semana 13)
+## 7. Trabajar cada uno en su parte sin depender del resto
+
+Una sola persona hace la corrida oficial en `trabajo/`. Cuando termina, todo lo que necesita cada integrante para estudiar, ejecutar y modificar su parte ya está en Drive.
+
+**Acceso (una sola vez).** Quien tiene la carpeta la comparte con el grupo como *Editor*. Cada integrante, desde su cuenta: *clic derecho → Organizar → Agregar acceso directo → Mi unidad*. La ruta queda igual, `MyDrive/quickdraw-early`, y el notebook funciona sin cambios.
+
+**Tres formas de trabajar:**
+
+| Para qué | Cómo | Dónde escribe |
+|---|---|---|
+| Leer resultados, figuras y tablas oficiales | Abrir los archivos de `trabajo/resultados/validacion/`, o ejecutar el notebook tal cual: los modelos solo se cargan | `trabajo/` (no cambia nada si no se tocó la configuración) |
+| Experimentar con los modelos reales (sección *Modificar* de la guía) | `MI_CARPETA = "su_nombre"` en la primera celda | `trabajo_su_nombre/` |
+| Probar cambios rápidos del código o de la configuración | `MODO_RAPIDO = True` y `MI_CARPETA = "su_nombre"` | `trabajo_rapido_su_nombre/` |
+
+Con `MI_CARPETA`, la primera vez se copian los modelos y resultados oficiales (sin checkpoints ni predicciones, que se recalculan) y la caché de prefijos se lee de `trabajo/cache/` sin copiarla. A partir de ahí pueden cambiar cualquier parámetro, reentrenar o volver a evaluar: la protección de la sección 6 funciona igual dentro de su carpeta, y `trabajo/` no se toca.
+
+**Reglas:**
+- Nadie modifica ni borra nada dentro de `trabajo/`. Solo quien hace la corrida oficial ejecuta el notebook con `MI_CARPETA` vacío.
+- Un cambio que se quiera quedar se decide en grupo con resultados de validación, se sube a GitHub y lo aplica la corrida oficial.
+- La prueba (sección 8) no se puede evaluar desde una carpeta personal.
+- Para recuperar espacio, borren su `trabajo_su_nombre/` cuando ya no lo usen.
+- Las pruebas automáticas (`pytest tests`) no necesitan datos ni modelos: cada uno las corre en su computadora o en Colab.
+
+## 8. El conjunto de prueba (semana 13)
 
 Mientras `USAR_PRUEBA = False`, ninguna función toca los dibujos de prueba: ni se rasterizan, y `predecir_todo(..., "prueba")` lanza un error. En la semana 13, con los modelos congelados:
 
@@ -90,7 +113,7 @@ Mientras `USAR_PRUEBA = False`, ninguna función toca los dibujos de prueba: ni 
 2. ejecuten todo **una sola vez**;
 3. no cambien nada después de ver los resultados de prueba. Si algo sale mal, se reporta tal cual en el paper.
 
-## 8. Fuera de Colab
+## 9. Fuera de Colab
 
 ```bash
 pip install -r requirements.txt
@@ -99,6 +122,6 @@ cd notebooks && jupyter notebook proyecto_quickdraw.ipynb
 
 Fuera de Colab, el notebook usa como raíz la carpeta de arriba de `notebooks/` (o la variable de entorno `QD_RAIZ`). Las pruebas automáticas se ejecutan desde la raíz del repositorio con `pytest tests`.
 
-## 9. Resultados de la verificación (no son del proyecto)
+## 10. Resultados de la verificación (no son del proyecto)
 
 Para comprobar que el código aprende, se hizo una corrida mediana en CPU: 1 000 dibujos por categoría, 4 épocas y 1 semilla. Exactitud final: M1 0,52, M2 0,69 y M2-P 0,63. AUC progresiva: 0,39, 0,50 y 0,53. Con tan poco entrenamiento estos números **no sirven para el paper**; solo muestran que el orden esperado aparece. En esa corrida H2 salió refutada porque M2-P perdió 5,8 puntos de exactitud final; en `04_entrenamiento_y_busqueda.md` hay una modificación posible si eso se repite en la corrida real.

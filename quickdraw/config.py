@@ -27,6 +27,9 @@ class Config:
     # --- Rutas ---------------------------------------------------------------
     ruta_muestra: Path = Path("datos/muestra_30")   # archivos <categoria>.ndjson.gz
     ruta_trabajo: Path = Path("trabajo")            # cachés, checkpoints y resultados
+    # Si se da, la caché de prefijos se lee de aquí y no de ruta_trabajo/cache.
+    # Lo usan las carpetas personales para no copiar ~1,5 GB (ver docs/00, sección 7).
+    ruta_cache_comun: Path | None = None
 
     # --- Datos ---------------------------------------------------------------
     dibujos_por_categoria: int = 10_000      # reconocidos que se leen de cada archivo
@@ -75,6 +78,8 @@ class Config:
 
     @property
     def ruta_cache(self) -> Path:
+        if self.ruta_cache_comun is not None:
+            return Path(self.ruta_cache_comun)
         return Path(self.ruta_trabajo) / "cache"
 
     @property

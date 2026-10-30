@@ -19,6 +19,28 @@ from .entrenar import (DISPOSITIVO, busqueda, entrenar_o_cargar, mejor_combinaci
 from .raster import indices_completos, obtener_cache
 
 
+# --- 0. Carpeta personal ----------------------------------------------------------
+
+def preparar_carpeta_personal(oficial, personal):
+    """Copia los modelos y resultados oficiales a una carpeta propia, solo la primera vez.
+
+    Así cada integrante puede experimentar (cambiar parámetros, reentrenar, volver
+    a evaluar) sin tocar trabajo/. La caché no se copia: se comparte con
+    Config.ruta_cache_comun. Tampoco los checkpoints ni las predicciones, que se
+    recalculan si hacen falta. Ver docs/00_como_ejecutar.md, sección 7.
+    """
+    import shutil
+    oficial, personal = Path(oficial), Path(personal)
+    if personal.exists():
+        return personal
+    for sub in ("modelos", "resultados"):
+        if (oficial / sub).exists():
+            shutil.copytree(oficial / sub, personal / sub,
+                            ignore=shutil.ignore_patterns("checkpoint.pt", "predicciones_*"))
+    print(f"Carpeta personal creada en {personal} a partir de {oficial}.")
+    return personal
+
+
 # --- 1. Datos -------------------------------------------------------------------
 
 def preparar_datos(cfg: Config, procesos: int = 2):

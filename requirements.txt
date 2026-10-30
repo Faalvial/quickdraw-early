@@ -1,0 +1,13 @@
+# En Colab ya vienen instalados casi todos; solo falta gradio para la demo.
+torch>=2.3
+numpy>=1.24
+scipy>=1.11
+scikit-learn>=1.3
+pillow>=9.5
+matplotlib>=3.7
+pandas>=2.0
+requests>=2.31
+# Opcionales
+gradio>=4.0        # demo (docs/08_demo.md)
+pytest>=7.0        # pruebas automáticas (tests/)
+jupyter            # para correr los notebooks fuera de Colab

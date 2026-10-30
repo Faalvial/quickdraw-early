@@ -1,0 +1,18 @@
+# Datos y resultados: se generan con el notebook y pesan mucho (ver docs/00_como_ejecutar.md)
+datos/muestra_30/
+trabajo/
+trabajo_rapido/
+*.npz
+*.pt
+
+# Python y entornos
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -52,7 +52,9 @@ class Config:
     dibujos_val_auc: int = 3000        # submuestra de validación para la AUC por época
     # Esquema de M2-P: "prefijos" (un prefijo al azar, el del plan) o "mixto"
     # (con probabilidad m2p_prob_completo, el dibujo completo). Ver docs/04.
-    esquema_m2p: str = "prefijos"
+    # Adoptado el 31/10 con validación (H2 se cumple en las 3 semillas); el esquema
+    # "prefijos" original queda reportado en el paper. Ver docs/04.
+    esquema_m2p: str = "mixto"
     m2p_prob_completo: float = 0.5
 
     # --- Búsqueda de hiperparámetros (solo M2) --------------------------------

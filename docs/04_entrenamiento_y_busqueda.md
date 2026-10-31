@@ -10,6 +10,7 @@
 
 - **M1 y M2 (`'completos'`):** en cada época, el dibujo completo de cada dibujo de entrenamiento.
 - **M2-P (`'prefijos'`):** en cada época, **un prefijo al azar** de cada dibujo, con k uniforme entre 1 y K. En la época siguiente se sortea otro k.
+- **M2-P (`'mixto'`, el adoptado):** igual, pero con probabilidad `m2p_prob_completo` = 0,5 se usa el dibujo completo en lugar del prefijo. Ver el final de este documento.
 
 Cada dibujo aporta una imagen por época en los dos esquemas, así que M2 y M2-P hacen el mismo número de pasos y los dibujos con muchos trazos no pesan más.
 
@@ -54,6 +55,8 @@ M2 y M2-P se entrenan con las semillas 0, 1 y 2; M1 solo con la 0 (`semillas_m1`
 
 ### Si H2 falla porque M2-P pierde exactitud final
 
-En la corrida en CPU con todos los datos (semilla 0), M2-P ganó 0,080 de AUC progresiva pero perdió 1,6 puntos de exactitud final (83,4 % frente a 81,8 %); el criterio de H2 permite 1. Si en Colab se repite, una modificación razonable es **mezclar dibujos completos** en el entrenamiento de M2-P: por ejemplo, con probabilidad 0,5 usar el dibujo completo y si no un prefijo al azar. Ya está implementado: en el notebook, al crear `cfg`, agreguen `esquema_m2p="mixto"` (y si quieren otra proporción, `m2p_prob_completo=0.3`). Para reentrenar M2-P, borren antes `trabajo/modelos/M2-P_s*` y `trabajo/resultados/predicciones_*` o el notebook se detiene avisando que la configuración cambió.
+**Esquema adoptado: mixto (31/10).** Con el esquema original de prefijos, la corrida oficial en validación (3 semillas) dio a M2-P una ventaja de AUC de +0,070 a +0,096, pero perdió 1,61, 2,99 y 0,87 puntos de exactitud final: H2 quedaba refutada porque el criterio permite 1. Se aplicó el plan B escrito de antemano: **mezclar dibujos completos**, con probabilidad 0,5 el dibujo completo y si no un prefijo al azar (`esquema_m2p="mixto"`, `m2p_prob_completo=0.5`). En validación, la ventaja de AUC quedó entre +0,058 y +0,088 y la pérdida en 0,66, 0,94 y −1,01 puntos: H2 se cumple en las tres semillas. La decisión se tomó con validación, antes de abrir la prueba, y el paper reporta los dos esquemas.
+
+Desde entonces `"mixto"` es el valor por defecto en `config.py`. Para volver a evaluar el esquema original (por ejemplo, la carpeta `trabajo_prefijos/`), agreguen al crear `cfg` el argumento `esquema_m2p="prefijos"`. Si cambian el esquema o la proporción, borren antes `modelos/M2-P_s*` y `resultados/predicciones_*` de esa carpeta, o el notebook se detiene avisando que la configuración cambió.
 
 Es un cambio de método: debe decidirse con los resultados de **validación** (nunca de prueba) y declararse en el paper.

@@ -8,7 +8,7 @@ Se entrenan tres modelos sobre 30 categorías de Quick, Draw! (5 pares confundib
 
 - **M1**, perceptrón multicapa, como referencia;
 - **M2**, CNN entrenada con dibujos completos;
-- **M2-P**, la misma CNN entrenada con un prefijo al azar de cada dibujo.
+- **M2-P**, la misma CNN entrenada con prefijos: en cada época, la mitad de las veces el dibujo completo y si no un prefijo al azar (esquema mixto, adoptado con validación; ver `docs/04`).
 
 ## Empezar
 

@@ -212,8 +212,9 @@ def huella_modelo(cfg: Config, hp: dict) -> dict:
 def entrenar_o_cargar(nombre: str, cache_ent, cache_val, cfg: Config, hp: dict, semilla: int):
     """Entrena el modelo si no existe su archivo final; si existe, solo lo carga.
 
-    hp: {"optimizador", "lr", "dropout"}. M2-P usa el esquema 'prefijos' y la
-    AUC progresiva como objetivo; M1 y M2 usan dibujos completos.
+    hp: {"optimizador", "lr", "dropout"}. M2-P usa el esquema cfg.esquema_m2p
+    ("mixto" por defecto) y la AUC progresiva como objetivo; M1 y M2 usan dibujos
+    completos.
     """
     carpeta = ruta_modelo(cfg, nombre, semilla)
     final = carpeta / "modelo.pt"

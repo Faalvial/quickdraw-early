@@ -2,7 +2,7 @@
 
 **Archivos:** `demo/demo.py`, `notebooks/demo.ipynb`
 **Responsable en el plan:** Jorly
-**Condición del plan:** se hace en la semana 13 y solo si H1 y H2 ya están; si no, se usa `fig_trazo_a_trazo.png`.
+**Condición del plan:** la demo va en la exposición porque H1 y H2 ya se cumplen en validación. Si falla en vivo, se muestra `fig_trazo_a_trazo.png`.
 
 ## Cómo abrirla
 

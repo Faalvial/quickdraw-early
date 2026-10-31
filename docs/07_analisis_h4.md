@@ -45,5 +45,3 @@ Para cada par (gato/perro, león/tigre, etc.), qué porcentaje de sus dibujos se
 | Mapas con más puntos o distinta perplejidad | `Config.tsne_por_categoria`, `Config.tsne_perplejidad` |
 | Mapas en otra fracción (por ejemplo 50 %) | El bucle `for f in (0.3, 1.0)` en `experimentos.evaluar` |
 | Matrices de confusión de M2 además de M2-P | Llamen `figuras.confusion(metricas.matriz_confusion(cache, pred_m2, f), ...)` con las predicciones de M2 |
-
-Si el grupo se atrasa, el plan permite que H4 quede solo como análisis visual (t-SNE y matrices de confusión): basta con no reportar el veredicto de H4.

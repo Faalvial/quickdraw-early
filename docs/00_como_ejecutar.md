@@ -31,7 +31,7 @@ Vuelvan a poner `MODO_RAPIDO = False` y ejecuten todo. El notebook avanza por et
 | Entrenamiento | M1 (1 semilla), M2 y M2-P (3 semillas cada uno), hasta 20 épocas | ~2,2 h |
 | Evaluación | Métricas, hipótesis y figuras en validación | Unos minutos |
 
-Los tiempos de GPU vienen de la estimación del plan v5 (~2,6 h en total) y del tiempo medido aquí en CPU; midan los suyos en la semana 9 y ajusten. La caché ocupa unos 1,5 GB en Drive (entrenamiento + validación) y cabe en la memoria de Colab.
+Los tiempos de GPU vienen de la estimación del plan v5 (~2,6 h en total). El tiempo real de cada época de la corrida oficial quedó en el campo `segundos` de cada `historial.json`. La caché ocupa unos 1,5 GB en Drive (entrenamiento + validación) y cabe en la memoria de Colab.
 
 **Repartir el trabajo entre cuentas.** Cada modelo y cada semilla se guardan en su propia carpeta, así que dos personas pueden entrenar a la vez sobre la misma carpeta compartida sin pisarse. Por ejemplo, en una cuenta:
 
@@ -64,7 +64,7 @@ trabajo/
     fig_prefijos.png
     predicciones_validacion/   predicción de cada modelo para cada prefijo
     validacion/             metricas.csv, metricas_media_desviacion.csv, hipotesis.json,
-                            separacion_pares.csv y las figuras fig_*.png
+                            separacion_pares.csv, las figuras fig_*.png y tablas/ (LaTeX del paper)
     prueba/                 lo mismo, solo después de la semana 13
 ```
 
@@ -80,7 +80,7 @@ El código protege contra la mezcla de resultados viejos y nuevos:
 | La arquitectura (`quickdraw/modelos.py`) o la forma de entrenar (`quickdraw/entrenar.py`) | **Esto no se detecta solo.** Borren `trabajo/modelos/` y `trabajo/resultados/predicciones_*`. |
 | Métricas, hipótesis o figuras | Basta con volver a ejecutar la sección 5 del notebook: no hace falta reentrenar. |
 
-Si dudan, borrar `trabajo/` entero siempre es seguro: solo cuesta volver a calcular.
+Las rutas de esta tabla son las de la carpeta en la que trabajan: en su carpeta personal, `trabajo_su_nombre/modelos/` y así. Si dudan, borrar su carpeta personal entera siempre es seguro: la próxima vez se vuelve a copiar de la oficial. La carpeta oficial `trabajo/` no se borra (sección 7).
 
 ## 7. Trabajar cada uno en su parte sin depender del resto
 
@@ -93,13 +93,13 @@ Una sola persona hace la corrida oficial en `trabajo/`. Cuando termina, todo lo 
 | Para qué | Cómo | Dónde escribe |
 |---|---|---|
 | Leer resultados, figuras y tablas oficiales | Abrir los archivos de `trabajo/resultados/validacion/`, o ejecutar el notebook tal cual: los modelos solo se cargan | `trabajo/` (no cambia nada si no se tocó la configuración) |
-| Experimentar con los modelos reales (sección *Modificar* de la guía) | `MI_CARPETA = "su_nombre"` en la primera celda | `trabajo_su_nombre/` |
+| Experimentar con los modelos reales (las tareas prácticas de su guía) | `MI_CARPETA = "su_nombre"` en la primera celda | `trabajo_su_nombre/` |
 | Probar cambios rápidos del código o de la configuración | `MODO_RAPIDO = True` y `MI_CARPETA = "su_nombre"` | `trabajo_rapido_su_nombre/` |
 
 Con `MI_CARPETA`, la primera vez se copian los modelos y resultados oficiales (sin checkpoints ni predicciones, que se recalculan) y la caché de prefijos se lee de `trabajo/cache/` sin copiarla. A partir de ahí pueden cambiar cualquier parámetro, reentrenar o volver a evaluar: la protección de la sección 6 funciona igual dentro de su carpeta, y `trabajo/` no se toca.
 
 **Reglas:**
-- Nadie modifica ni borra nada dentro de `trabajo/`. Solo quien hace la corrida oficial ejecuta el notebook con `MI_CARPETA` vacío.
+- Nadie modifica ni borra nada dentro de `trabajo/`. El notebook se ejecuta con `MI_CARPETA` vacío solo para la corrida oficial y para la evaluación en prueba de la semana 13.
 - Un cambio que se quiera quedar se decide en grupo con resultados de validación, se sube a GitHub y lo aplica la corrida oficial.
 - La prueba (sección 8) no se puede evaluar desde una carpeta personal.
 - Para recuperar espacio, borren su `trabajo_su_nombre/` cuando ya no lo usen.
@@ -124,4 +124,4 @@ Fuera de Colab, el notebook usa como raíz la carpeta de arriba de `notebooks/` 
 
 ## 10. Resultados de la verificación (no son del proyecto)
 
-Para comprobar que el código aprende, se hizo una corrida mediana en CPU: 1 000 dibujos por categoría, 4 épocas y 1 semilla. Exactitud final: M1 0,52, M2 0,69 y M2-P 0,63. AUC progresiva: 0,39, 0,50 y 0,53. Con tan poco entrenamiento estos números **no sirven para el paper**; solo muestran que el orden esperado aparece. En esa corrida H2 salió refutada porque M2-P perdió 5,8 puntos de exactitud final; en `04_entrenamiento_y_busqueda.md` hay una modificación posible si eso se repite en la corrida real.
+Para comprobar que el código aprende, se hizo una corrida mediana en CPU: 1 000 dibujos por categoría, 4 épocas y 1 semilla. Exactitud final: M1 0,52, M2 0,69 y M2-P 0,63. AUC progresiva: 0,39, 0,50 y 0,53. Con tan poco entrenamiento estos números **no sirven para el paper**; solo muestran que el orden esperado aparece. En esa corrida H2 salió refutada porque M2-P perdió 5,8 puntos de exactitud final. En la corrida real pasó lo mismo con el esquema de prefijos, y por eso se adoptó el esquema mixto (ver `04_entrenamiento_y_busqueda.md`).

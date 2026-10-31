@@ -1,7 +1,7 @@
 # 06 · Estadística y evaluación de las hipótesis
 
 **Archivos:** `quickdraw/estadistica.py`, `quickdraw/hipotesis.py`
-**Responsable en el plan:** Omar (H1, H2 y H5) y Farid (H4)
+**Responsable en el plan:** Omar (H1 y H5), Cristian (H2) y Farid (H4)
 **Teoría:** secciones 3.6.2 (bootstrap), 3.6.3 (McNemar) y 3.8 (hipótesis) del avance; sección 1 del plan v5
 
 ## Las pruebas (`estadistica.py`)

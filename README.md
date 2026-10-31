@@ -25,7 +25,7 @@ Lean [`docs/00_como_ejecutar.md`](docs/00_como_ejecutar.md). En resumen: suban e
 | `quickdraw/modelos.py` | M1, M2 y M2-P | [03](docs/03_modelos.md) | Cristian |
 | `quickdraw/entrenar.py` | Entrenamiento, checkpoints y búsqueda de hiperparámetros | [04](docs/04_entrenamiento_y_busqueda.md) | Cristian |
 | `quickdraw/metricas.py`, `quickdraw/figuras.py`, `quickdraw/tablas.py` | Exactitud por fracción, AUC progresiva, k*, confusión, figuras y tablas LaTeX | [05](docs/05_metricas.md) | Omar |
-| `quickdraw/estadistica.py`, `quickdraw/hipotesis.py` | Bootstrap, McNemar, Spearman y criterios de H1, H2, H4 y H5 | [06](docs/06_estadistica_e_hipotesis.md) | Omar |
+| `quickdraw/estadistica.py`, `quickdraw/hipotesis.py` | Bootstrap, McNemar, Spearman y criterios de H1, H2, H4 y H5 | [06](docs/06_estadistica_e_hipotesis.md) | Omar (H2: Cristian; H4: Farid) |
 | `quickdraw/analisis.py` | Confundibilidad en el espacio de la CNN, t-SNE y pares | [07](docs/07_analisis_h4.md) | Farid |
 | `demo/demo.py`, `notebooks/demo.ipynb` | Demo en Gradio | [08](docs/08_demo.md) | Jorly |
 | `quickdraw/experimentos.py` | Las etapas que llama el notebook | [00](docs/00_como_ejecutar.md) | — |
